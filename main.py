@@ -1,11 +1,10 @@
-import MLP as mlp
-import danse_layer as dl
 import numpy as np
-import  dataMethods as data
-import keras
+import dataMethods as data
 import warnings
 import layer
 import MLP_3 as mlp3
+import helper_functions as hf
+import experiment_helpers as eh
 #import MLP_2
 
 
@@ -23,7 +22,7 @@ import MLP_3 as mlp3
 
 # warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 #
-(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data(path="mnist.npz")
+# (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data(path="mnist.npz")
 #
 # trainset = data.get_train_data(50000, x_train, y_train)
 
@@ -52,23 +51,47 @@ import MLP_3 as mlp3
 #
 # network.train_with_batch(trainset)
 
-warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
+# warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
+#
+# (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data(path="mnist.npz")
+# train_set, valid_set = data.get_split_data(0.4, x_train, y_train)
+#
+# l1 = layer.Layer(784, 200, mlp.tanh)
+# l2 = layer.Layer(200, 100, mlp.tanh)
+# l3 = layer.Layer(100, 10, mlp.linear)
+#
+# network = mlp3.network()
+# network.add_layer(l1)
+# network.add_layer(l2)
+# network.add_layer(l3)
+#
+# network.train_with_batch(train_set, valid_set)
+# accuracy, loss = network.test_network(valid_set)
+# print(accuracy)
+# print(loss)
+#
+#
 
-(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data(path="mnist.npz")
-train_set, valid_set = data.get_split_data(0.4, x_train, y_train)
+train_set, valid_set, test_set = data.get_data_from_files_with_vaildation_data(0.1, 0.05)
 
-l1 = layer.Layer(784, 200, mlp.tanh)
-l2 = layer.Layer(200, 100, mlp.tanh)
-l3 = layer.Layer(100, 10, mlp.linear)
+# print('Train set length: ', len(train_set))
+# print('Valid set length: ', len(valid_set))
+# print('Test set length: ', len(test_set))
 
-network = mlp3.network()
-network.add_layer(l1)
-network.add_layer(l2)
-network.add_layer(l3)
-
-network.train_with_batch(train_set, valid_set)
-accuracy, loss = network.test_network(valid_set)
-print(accuracy)
-print(loss)
+# network4 = eh.create_network([784, 100, 10], hf.tanh)
+# network4.train_with_adam_by_epochs_num(train_set, valid_set, 50, 0.1)
 
 
+# network2 = eh.create_network([784, 100, 10], hf.tanh)
+# network2.train_with_momentum_by_epochs_num(train_set, valid_set, 50, 0.1, 0)
+#
+# network = eh.create_network([784, 100, 10], hf.tanh)
+# network.train_with_nesterov_by_epochs_num(train_set, valid_set, 50, 0.1, 0.8)
+#
+# network3 = eh.create_network([784, 100, 10], hf.tanh)
+# network3.train_with_momentum_by_epochs_num(train_set, valid_set, 50, 0.1, 0.8)
+
+
+
+network5 = eh.create_network([784, 100, 10], hf.tanh)
+network5.train_with_adagrad_by_epochs_num(train_set, valid_set, 40, 0.5)

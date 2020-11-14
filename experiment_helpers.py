@@ -12,9 +12,9 @@ def get_start_data(data_split, val_split = -1):
 def create_network(neur_in_layers, activation_function, min_w = 0, max_w = 0.1):
     network = mlp.network()
     for i in range(len(neur_in_layers)-2):
-        l = layer.Layer(neur_in_layers[i], neur_in_layers[i+1], activation_function, min_w, max_w)
+        l = layer.Layer(neur_in_layers[i], neur_in_layers[i+1], activation_function, min_w, max_w, True)
         network.add_layer(l)
-    l = layer.Layer(neur_in_layers[-2], neur_in_layers[-1], act_func.linear, min_w, max_w)
+    l = layer.Layer(neur_in_layers[-2], neur_in_layers[-1], act_func.linear, min_w, max_w, True)
     network.add_layer(l)
     return network
 
@@ -64,3 +64,9 @@ def weights_list_to_string(wl):
     for w in wl:
         w_s.append(str(w))
     return w_s
+
+def initial_weights_to_diff(wl):
+    a = []
+    for x,y in wl:
+        a.append(y-x)
+    return a
