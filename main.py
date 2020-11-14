@@ -1,5 +1,5 @@
 import numpy as np
-import dataMethods as data
+import data_methods as data
 import warnings
 import layer
 import MLP_3 as mlp3

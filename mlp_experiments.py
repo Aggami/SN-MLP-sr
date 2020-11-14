@@ -1,6 +1,6 @@
 import MLP_3 as mlp
 import helper_functions as act_func
-import dataMethods as data
+import data_methods as data
 import layer
 from datetime import datetime
 import matplotlib.pyplot as plt
